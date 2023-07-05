@@ -30,10 +30,8 @@ func TestCountSetBit(t *testing.T) {
 }
 
 func BenchmarkCountSetBit(b *testing.B) {
-	// Set up a test case or input for the benchmark
 	input := uint64(18446744073709551615)
 
-	// Run the benchmark
 	for n := 0; n < b.N; n++ {
 		CountSetBit(input)
 	}
@@ -67,10 +65,8 @@ func TestCountSetBitWithTable(t *testing.T) {
 }
 
 func BenchmarkCountSetBitWithTable(b *testing.B) {
-	// Set up a test case or input for the benchmark
 	input := uint64(18446744073709551615)
 
-	// Run the benchmark
 	for n := 0; n < b.N; n++ {
 		CountSetBitWithTable(input)
 	}
