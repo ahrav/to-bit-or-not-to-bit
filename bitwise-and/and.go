@@ -1,7 +1,14 @@
 package bitwise_and
 
+import "math"
+
 // CountSetBit using Brian Kernighan's algorithm.
 func CountSetBit(x uint64) uint64 {
+	// Validate input isn't negative or larger than 64 bits.
+	if x < 0 || x > math.MaxUint64 {
+		return 0
+	}
+
 	var count uint64
 	for x != 0 {
 		x = x & (x - 1)
@@ -21,6 +28,11 @@ func init() {
 
 // CountSetBitWithTable using a lookup table.
 func CountSetBitWithTable(x uint64) uint64 {
+	// Validate input isn't negative or larger than 64 bits.
+	if x < 0 || x > math.MaxUint64 {
+		return 0
+	}
+
 	var count uint64
 	for i := 0; i < 8; i++ {
 		count += lookupTable[x&0xff]
