@@ -1,0 +1,36 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Output files
+*.out
+*.test
+
+# Go specific
+/bin/
+/pkg/
+/vendor/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.sublime-workspace
+
+# Build
+/build/
+
+# Dependency directories (Glide, Godep, vndr, dep, etc.)
+/vendor/
+/Godeps/
+/_vendor/
+
+# Test and profiling tools
+/test/
+/coverage/
+/pprof/
+
+# Operating System-specific files
+*.DS_Store
+Thumbs.db
