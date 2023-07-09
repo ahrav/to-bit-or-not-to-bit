@@ -52,3 +52,19 @@ func countingBits(n uint64) []uint64 {
 	}
 	return result
 }
+
+// Determine if n is even.
+func isEven(n uint64) bool {
+	return n&1 == 0
+}
+
+// note: While this implemenation is naive, the go compiler is smart enough to
+// optimize this to a single AND instruction.
+// Both this and isEven use the following ARM64 assembly:
+// PCDATA  $3, $1
+// TST     $1, R0
+// CSET    EQ, R0
+// RET     (R30)
+func isEvenNaive(n uint64) bool {
+	return n%2 == 0
+}

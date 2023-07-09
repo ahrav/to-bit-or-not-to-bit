@@ -98,3 +98,46 @@ func TestCountingBits(t *testing.T) {
 		}
 	}
 }
+
+func TestIsEven(t *testing.T) {
+	tests := []struct {
+		n        uint64
+		expected bool
+	}{
+		{0, true},
+		{1, false},
+		{2, true},
+		{3, false},
+		{234432, true},
+		{12345632832, true},
+	}
+
+	for _, test := range tests {
+		result := isEven(test.n)
+		if result != test.expected {
+			t.Errorf("isEven(%d) = %v, expected %v", test.n, result, test.expected)
+		}
+	}
+}
+
+var result bool
+
+func BenchmarkIsEven(b *testing.B) {
+	input := uint64(12345632832)
+
+	var r bool
+	for n := 0; n < b.N; n++ {
+		r = isEven(input)
+	}
+	result = r
+}
+
+func BenchmarkIsEvenNaive(b *testing.B) {
+	input := uint64(12345632832)
+
+	var r bool
+	for n := 0; n < b.N; n++ {
+		r = isEvenNaive(input)
+	}
+	result = r
+}
