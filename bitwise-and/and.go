@@ -2,16 +2,17 @@ package bitwise_and
 
 import "math"
 
-// CountSetBit using Brian Kernighan's algorithm.
-func CountSetBit(x uint64) uint64 {
+// Find the number of set bits for n using Brian Kernighan's algorithm.
+// If n is < 0 or > 64 bits, return 0.
+func countSetBit(n uint64) uint64 {
 	// Validate input isn't negative or larger than 64 bits.
-	if x < 0 || x > math.MaxUint64 {
+	if n < 0 || n > math.MaxUint64 {
 		return 0
 	}
 
 	var count uint64
-	for x != 0 {
-		x = x & (x - 1)
+	for n != 0 {
+		n = n & (n - 1)
 		count++
 	}
 	return count
@@ -26,18 +27,28 @@ func init() {
 	}
 }
 
-// CountSetBitWithTable using a lookup table.
-func CountSetBitWithTable(x uint64) uint64 {
+// Find the number of set bits for n using a lookup table.
+// If n is < 0 or > 64 bits, return 0.
+func countSetBitWithTable(n uint64) uint64 {
 	// Validate input isn't negative or larger than 64 bits.
-	if x < 0 || x > math.MaxUint64 {
+	if n < 0 || n > math.MaxUint64 {
 		return 0
 	}
 
 	var count uint64
 	for i := 0; i < 8; i++ {
-		count += lookupTable[x&0xff]
-		x >>= 8
+		count += lookupTable[n&0xff]
+		n >>= 8
 	}
 
 	return count
+}
+
+// Finds the number of 1's for every number from 0 to n.
+func countingBits(n uint64) []uint64 {
+	result := make([]uint64, n+1)
+	for i := uint64(0); i <= n; i++ {
+		result[i] = countSetBit(i)
+	}
+	return result
 }

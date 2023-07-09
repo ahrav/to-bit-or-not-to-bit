@@ -1,6 +1,10 @@
 package bitwise_and
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/google/go-cmp/cmp"
+)
 
 func TestCountSetBit(t *testing.T) {
 	tests := []struct {
@@ -22,7 +26,7 @@ func TestCountSetBit(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		result := CountSetBit(test.input)
+		result := countSetBit(test.input)
 		if result != test.expected {
 			t.Errorf("For input %d, expected %d, but got %d", test.input, test.expected, result)
 		}
@@ -33,7 +37,7 @@ func BenchmarkCountSetBit(b *testing.B) {
 	input := uint64(18446744073709551615)
 
 	for n := 0; n < b.N; n++ {
-		CountSetBit(input)
+		countSetBit(input)
 	}
 }
 
@@ -57,7 +61,7 @@ func TestCountSetBitWithTable(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		result := CountSetBitWithTable(test.input)
+		result := countSetBitWithTable(test.input)
 		if result != test.expected {
 			t.Errorf("For input %d, expected %d, but got %d", test.input, test.expected, result)
 		}
@@ -68,6 +72,29 @@ func BenchmarkCountSetBitWithTable(b *testing.B) {
 	input := uint64(18446744073709551615)
 
 	for n := 0; n < b.N; n++ {
-		CountSetBitWithTable(input)
+		countSetBitWithTable(input)
+	}
+}
+
+func TestCountingBits(t *testing.T) {
+	tests := []struct {
+		n        uint64
+		expected []uint64
+	}{
+		{0, []uint64{0}},
+		{1, []uint64{0, 1}},
+		{2, []uint64{0, 1, 1}},
+		{3, []uint64{0, 1, 1, 2}},
+		{4, []uint64{0, 1, 1, 2, 1}},
+		{5, []uint64{0, 1, 1, 2, 1, 2}},
+		{8, []uint64{0, 1, 1, 2, 1, 2, 2, 3, 1}},
+		{16, []uint64{0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 1}},
+	}
+
+	for _, test := range tests {
+		result := countingBits(test.n)
+		if !cmp.Equal(result, test.expected) {
+			t.Errorf("countingBits(%d) = %v, expected %v", test.n, result, test.expected)
+		}
 	}
 }
