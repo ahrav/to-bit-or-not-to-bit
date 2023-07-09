@@ -44,7 +44,7 @@ func countSetBitWithTable(n uint64) uint64 {
 	return count
 }
 
-// Finds the number of 1's for every number from 0 to n.
+// Finds the number of 1's (set bits) for every number from 0 to n.
 func countingBits(n uint64) []uint64 {
 	result := make([]uint64, n+1)
 	for i := uint64(0); i <= n; i++ {
