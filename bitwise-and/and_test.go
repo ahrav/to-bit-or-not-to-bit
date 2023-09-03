@@ -141,3 +141,81 @@ func BenchmarkIsEvenNaive(b *testing.B) {
 	}
 	result = r
 }
+
+func TestIsPowerOfTwo(t *testing.T) {
+	tests := []struct {
+		n        uint64
+		expected bool
+	}{
+		{0, false},
+		{1, true},
+		{2, true},
+		{3, false},
+		{4, true},
+		{5, false},
+		{8, true},
+		{16, true},
+		{32, true},
+		{33, false},
+		{68719476736, true},
+		{137438953472, true},
+		{562949953421312, true},
+		{1125899906842624, true},
+	}
+
+	for _, test := range tests {
+		result := isPowerOfTwo(test.n)
+		if result != test.expected {
+			t.Errorf("isPowerOfTwo(%d) = %v, expected %v", test.n, result, test.expected)
+		}
+	}
+}
+
+func BenchmarkIsPowerOfTwo(b *testing.B) {
+	input := uint64(1125899906842624)
+
+	var r bool
+	for n := 0; n < b.N; n++ {
+		r = isPowerOfTwo(input)
+	}
+	result = r
+}
+
+func TestIsPowerOfTwoNaive(t *testing.T) {
+	tests := []struct {
+		n        uint64
+		expected bool
+	}{
+		{0, false},
+		{1, true},
+		{2, true},
+		{3, false},
+		{4, true},
+		{5, false},
+		{8, true},
+		{16, true},
+		{32, true},
+		{33, false},
+		{68719476736, true},
+		{137438953472, true},
+		{562949953421312, true},
+		{1125899906842624, true},
+	}
+
+	for _, test := range tests {
+		result := isPowerOfTwoNaive(test.n)
+		if result != test.expected {
+			t.Errorf("isPowerOfTwo(%d) = %v, expected %v", test.n, result, test.expected)
+		}
+	}
+}
+
+func BenchmarkIsPowerOfTwoNaive(b *testing.B) {
+	input := uint64(1125899906842624)
+
+	var r bool
+	for n := 0; n < b.N; n++ {
+		r = isPowerOfTwoNaive(input)
+	}
+	result = r
+}

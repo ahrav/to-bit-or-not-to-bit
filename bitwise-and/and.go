@@ -54,12 +54,14 @@ func countingBits(n uint64) []uint64 {
 }
 
 // Determine if n is even.
+//
+//go:noinline
 func isEven(n uint64) bool {
 	return n&1 == 0
 }
 
 // note: While this implemenation is naive, the go compiler is smart enough to
-// optimize this to a single AND instruction.
+// inoptimize this to a single AND instruction.
 // Both this and isEven use the following ARM64 assembly:
 // PCDATA  $3, $1
 // TST     $1, R0
@@ -67,4 +69,22 @@ func isEven(n uint64) bool {
 // RET     (R30)
 func isEvenNaive(n uint64) bool {
 	return n%2 == 0
+}
+
+//go:noinline
+func isPowerOfTwo(n uint64) bool {
+	return n != 0 && n&(n-1) == 0
+}
+
+func isPowerOfTwoNaive(n uint64) bool {
+	if n == 0 {
+		return false
+	}
+	for n != 1 {
+		if n%2 != 0 {
+			return false
+		}
+		n /= 2
+	}
+	return true
 }
